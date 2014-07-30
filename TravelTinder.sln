@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelTinder", "TravelTinder\TravelTinder.csproj", "{35460AA4-B94A-4B64-9418-7243EC3D2F01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelTinder.Library", "TravelTinder.Library\TravelTinder.Library.csproj", "{EA73910D-DF4A-40A6-9B32-86452D9A8BCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelTinder.Tests", "TravelTinder.Tests\TravelTinder.Tests.csproj", "{F77A595C-9A5C-4CCB-8679-22E7DFC6F297}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35460AA4-B94A-4B64-9418-7243EC3D2F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35460AA4-B94A-4B64-9418-7243EC3D2F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35460AA4-B94A-4B64-9418-7243EC3D2F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35460AA4-B94A-4B64-9418-7243EC3D2F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA73910D-DF4A-40A6-9B32-86452D9A8BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA73910D-DF4A-40A6-9B32-86452D9A8BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA73910D-DF4A-40A6-9B32-86452D9A8BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA73910D-DF4A-40A6-9B32-86452D9A8BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F77A595C-9A5C-4CCB-8679-22E7DFC6F297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F77A595C-9A5C-4CCB-8679-22E7DFC6F297}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F77A595C-9A5C-4CCB-8679-22E7DFC6F297}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F77A595C-9A5C-4CCB-8679-22E7DFC6F297}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

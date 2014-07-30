@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>TravelTinder</title>
+
+	<script src="@Path['~/Content/Scripts/jquery-2.1.1.min.js'];" type="text/javascript"></script>
+	<script src="@Path['~/Content/Scripts/jquery.jcarousel.min.js'];" type="text/javascript"></script>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+
+		body {
+			text-align: center;
+		}
+
+		/*
+		This is the visible area of you carousel.
+		Set a width here to define how much items are visible.
+		The width can be either fixed in px or flexible in %.
+		Position must be relative!
+		*/
+		.jcarousel {
+			position: relative;
+			overflow: hidden;
+			width: 600px;
+			height: 600px;
+		}
+
+		/*
+		This is the container of the carousel items.
+		You must ensure that the position is relative or absolute and
+		that the width is big enough to contain all items.
+		*/
+		.jcarousel ul {
+			width: 20000em;
+			position: relative;
+
+			/* Optional, required in this case since it's a <ul> element */
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		/*
+		These are the item elements. jCarousel works best, if the items
+		have a fixed width and height (but it's not required).
+		*/
+		.jcarousel li {
+			/* Required only for block elements like <li>'s */
+			float: left;
+		}
+	</style>
+
+	
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#matchMake').click(function() { 
+				$('#firstPanel').slideUp(1500);
+				$('#secondPanel').slideDown(1500);
+			});
+
+			$('.jcarousel').jcarousel();
+
+			$('#love').click(function() { 
+				scroll();
+			});
+
+			$('#loathe').click(function() { 
+				scroll();
+			});
+		});
+
+		function scroll()
+		{
+			$('.jcarousel').jcarousel('scroll', '+=1', function(scrolled) {
+				console.log($('#jcarouselcontrol:active'));
+				if(scrolled) {
+					console.log(scrolled);
+				}
+				else {
+					console.log(scrolled);
+
+					$.ajax({
+						url : "@Path['~/Suggestion/']",
+						type : "POST",
+						dataType : "json",
+						contentType : 'application/json',
+						data : JSON.stringify( {
+							//productCode : $('#ProductCode').val(),
+							//wasPrice : $('#WasPrice').val()
+						}),
+						success : function(data) {
+							$('#chosenLocationBlurb').append(data.Caption);
+							$('#chosenLocationName').append(data.NameOfLocation);
+							$('#chosenLocation').attr("src", "../Content/Images/Location/" + data.Image);
+							$('#searchChosenLocation').append("SEARCH " + data.NameOfLocation.toUpperCase() + " HOTELS");
+							$('#searchChosenLocation').attr('href', "http://www.laterooms.com/en/Hotels.aspx?hidfl=&k=" + data.NameOfLocation + "&d=20140730&n=1&rt-adult=2&rt-child=0&rt=2-0&currencies=GBP");
+
+							console.log(data.Caption);
+							console.log(data);
+						},
+						error: function(res) { 
+							console.log(res);
+						}
+					});
+
+					$('#secondPanel').slideUp(1500);
+					$('#thirdPanel').slideDown(1500);
+				}
+			});
+		}
+
+	</script>
+</head>
+<body>
+
+	<div id="firstPanel">
+		<img src="@Path['~/Content/Images/header-image.jpg'];" style="width:80%;height:80%"/>
+
+		<input type="button" name="Matchmake" value="Matchmake" id="matchMake" class="btn btn-warning" style="position:absolute;left: 750px; top: 450px;"/>
+	</div>
+
+	<div id="secondPanel" class="jcarousel-wrapper" style="display:none; padding-left: 450px; padding-top: 50px;">
+		<div class="jcarousel">
+			<ul>
+				@Each.UserResponses
+					<li>
+						<div>
+							<div style="opacity:0.9; background-color:#EE6790; color:#ffffff; position:absolute; top:0px; height:50px; width:600px; text-align:center;">
+								<h2 style="margin-top:0px;">@Current.ActualQuestion</h2>
+							</div>
+							<img src="@Path['~/Content/Images/@Current.Image'];" width="600px" height="400px"/>
+							<div style="opacity:0.9; background-color:#EE6790; color:#ffffff; position:absolute; top:350px; height:50px; width:600px; text-align:center; ">
+								<p>@Current.Caption</p>
+							</div>
+						</div>
+					</li>
+				@EndEach
+			</ul>
+			<a href="#" class="jcarousel-control-prev" id="love"><img src="@Path['~/Content/Images/love-icon.png']" style="position:absolute; left:10px; top: 310px"></a>
+			<a href="#" class="jcarousel-control-next" id="loathe"><img src="@Path['~/Content/Images/loathe-icon.png']" style="position:absolute; right:10px; top: 310px"></a>
+		</div>
+	</div>
+
+
+	<div id="thirdPanel" style="display:none; background-color:#EBEBEB;">
+		<h2>You have been matched with...</h2>
+
+		<img src="" id="chosenLocation"/>
+		<h2 id="chosenLocationName"></h2>
+		<p id="chosenLocationBlurb"></p>
+		<a href="http://laterooms.com" class="btn btn-warning" id="searchChosenLocation"></a>
+
+		<div style="clear:both;"></div>
+		<div style="background-color:#ffffff;width:100%; margin:0 auto;">
+			<p>If you like Paris, you might be interested in these destinations...</p>
+
+			<ul style="margin: 0;padding: 0;list-style-type: none;display: inline;">
+				<li style="display: inline; float:left;padding:50px 50px;"><img src="@Path['~/Content/Images/Alternative/athens.jpg']"/><br/>Athens</li>
+				<li style="display: inline; float:left;padding:50px 50px;"><img src="@Path['~/Content/Images/Alternative/milan.jpg']"/><br/>Milan</li>
+				<li style="display: inline; float:left;padding:50px 50px;"><img src="@Path['~/Content/Images/Alternative/venice.jpg']"/><br/>Venice</li>
+			<ul>
+		</div>
+	</div>
+</body>
+</html>
